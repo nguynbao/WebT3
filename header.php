@@ -10,7 +10,7 @@ $result_cartegory = $db->select($sql_cartegory);
 
 $categories = array();
 if ($result_cartegory) {
-    while($row = $result_cartegory->fetch_assoc()) {
+    while ($row = $result_cartegory->fetch_assoc()) {
         $categories[$row['cartegory_id']] = $row['cartegory_name'];
     }
 }
@@ -21,7 +21,7 @@ $result_brand = $db->select($sql_brand);
 
 $brands = array();
 if ($result_brand) {
-    while($row = $result_brand->fetch_assoc()) {
+    while ($row = $result_brand->fetch_assoc()) {
         $brands[] = $row;
     }
 }
@@ -33,7 +33,7 @@ if ($result_brand) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Style.css">
-    <title>N-Sports</title>
+    <title>WEB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -49,7 +49,7 @@ if ($result_brand) {
         <div class="header">
             <div class="logo">
                 <a href="index.php">
-                    <img src="Image/logo.png" id="logo" alt="SPORT" width="" height="">
+                    <img src="Image/logo3.png" id="logo" alt="SPORT" width="" height="">
                 </a>
             </div>
             <nav>
@@ -60,23 +60,28 @@ if ($result_brand) {
                             <a href="access/index_products.php">SẢN PHẨM </a>
                             <ul class="menu_sanpham">
                                 <div class="menu_sp">
-                                <?php foreach($categories as $cartegory_id => $cartegory_name): ?>
-                                    <li>
-                                        <a href="access/brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>"><?php echo $cartegory_name; ?></a>
-                                        <ul class="menu_con">
-                                            <?php foreach($brands as $brand): ?>
-                                                <?php if ($brand['cartegory_id'] == $cartegory_id): ?>
-                                                    <li><a href="access/brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>&brand_id=<?php echo $brand['brand_id']; ?>"><?php echo $brand['brand_name']; ?></a></li>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </li>
-                                <?php endforeach; ?>
+                                    <?php foreach ($categories as $cartegory_id => $cartegory_name): ?>
+                                        <li>
+                                            <a
+                                                href="access/brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>"><?php echo $cartegory_name; ?></a>
+                                            <ul class="menu_con">
+                                                <?php foreach ($brands as $brand): ?>
+                                                    <?php if ($brand['cartegory_id'] == $cartegory_id): ?>
+                                                        <li><a
+                                                                href="access/brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>&brand_id=<?php echo $brand['brand_id']; ?>"><?php echo $brand['brand_name']; ?></a>
+                                                        </li>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </li>
+                                    <?php endforeach; ?>
                                 </div>
                             </ul>
                         </li>
                         <li class="menu_item">
-                            <a href="#"><img width="20" height="20" src="https://theme.hstatic.net/200000696635/1001199686/14/menu_icon_3.png?v=8" alt="Chương trình khuyến mãi">CHƯƠNG TRÌNH KHUYẾN MÃI</a>
+                            <a href="#"><img width="20" height="20"
+                                    src="https://theme.hstatic.net/200000696635/1001199686/14/menu_icon_3.png?v=8"
+                                    alt="Chương trình khuyến mãi">CHƯƠNG TRÌNH KHUYẾN MÃI</a>
                             <ul class="sub_menu">
                                 <li><a href="#">Black Friday</a></li>
                                 <li><a href="#">Flash Sale</a></li>
@@ -132,7 +137,7 @@ if ($result_brand) {
                     if (isset($_SESSION['value'])) {
                         echo '
                         <div class="user-info">
-                            <p>Xin chào, '.$_SESSION['value'].'</p>
+                            <p>Xin chào, ' . $_SESSION['value'] . '</p>
                             <a href="access/logout.php">Đăng xuất</a>
                         </div>
                         ';
@@ -149,7 +154,7 @@ if ($result_brand) {
                         document.querySelector('.user-info').style.display = 'none';
                     });
                 </script>
-                
+
                 <div class="icon" id="heart-icon">
                     <a href="access/index_yeuthich.php">
                         <i class="fas fa-heart"></i>
@@ -182,4 +187,5 @@ if ($result_brand) {
         </script>
     </header>
 </body>
+
 </html>

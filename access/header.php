@@ -10,7 +10,7 @@ $result_cartegory = $db->select($sql_cartegory);
 
 $categories = array();
 if ($result_cartegory) {
-    while($row = $result_cartegory->fetch_assoc()) {
+    while ($row = $result_cartegory->fetch_assoc()) {
         $categories[$row['cartegory_id']] = $row['cartegory_name'];
     }
 }
@@ -21,7 +21,7 @@ $result_brand = $db->select($sql_brand);
 
 $brands = array();
 if ($result_brand) {
-    while($row = $result_brand->fetch_assoc()) {
+    while ($row = $result_brand->fetch_assoc()) {
         $brands[] = $row;
     }
 }
@@ -51,7 +51,7 @@ if ($result_brand) {
 
             <div class="logo">
                 <a href="../index.php">
-                    <img src="../Image/logo.png" id="logo" alt="SPORT" width="" height="">
+                    <img src="../Image/logo3.png" id="logo" alt="SPORT" width="" height="">
                 </a>
             </div>
 
@@ -63,25 +63,30 @@ if ($result_brand) {
                             <a href="index_products.php">SẢN PHẨM </a>
                             <ul class="menu_sanpham">
                                 <div class="menu_sp">
-                                <?php foreach($categories as $cartegory_id => $cartegory_name): ?>
-                                    <li>
-                                        <a href="brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>"><?php echo $cartegory_name; ?></a>
-                                        <ul class="menu_con">
-                                            <?php foreach($brands as $brand): ?>
-                                                <?php if ($brand['cartegory_id'] == $cartegory_id): ?>
-                                                    <li><a href="brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>&brand_id=<?php echo $brand['brand_id']; ?>"><?php echo $brand['brand_name']; ?></a></li>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </li>
-                                <?php endforeach; ?>
+                                    <?php foreach ($categories as $cartegory_id => $cartegory_name): ?>
+                                        <li>
+                                            <a
+                                                href="brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>"><?php echo $cartegory_name; ?></a>
+                                            <ul class="menu_con">
+                                                <?php foreach ($brands as $brand): ?>
+                                                    <?php if ($brand['cartegory_id'] == $cartegory_id): ?>
+                                                        <li><a
+                                                                href="brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>&brand_id=<?php echo $brand['brand_id']; ?>"><?php echo $brand['brand_name']; ?></a>
+                                                        </li>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </li>
+                                    <?php endforeach; ?>
                                 </div>
                             </ul>
                         </li>
 
 
                         <li class="menu_item">
-                            <a href="#"><img width="20" height="20" src="https://theme.hstatic.net/200000696635/1001199686/14/menu_icon_3.png?v=8" alt="Chương trình khuyến mãi">CHƯƠNG TRÌNH KHUYẾN MÃI</a>
+                            <a href="#"><img width="20" height="20"
+                                    src="https://theme.hstatic.net/200000696635/1001199686/14/menu_icon_3.png?v=8"
+                                    alt="Chương trình khuyến mãi">CHƯƠNG TRÌNH KHUYẾN MÃI</a>
                             <ul class="sub_menu">
                                 <li><a href="#">Black Friday</a></li>
                                 <li><a href="#">Flash Sale</a></li>
@@ -131,61 +136,61 @@ if ($result_brand) {
                     });
                 </script>
 
-               
+
                 <div class="icon" id="user-icon">
                     <a href="index_login.php">
                         <i class="fas fa-user"></i>
                     </a>
                     <?php
-                if(isset($_SESSION['value'])){
-                    
-                    echo '
+                    if (isset($_SESSION['value'])) {
+
+                        echo '
                     <div class="user-info">
-                    <p>Xin chào, '.$_SESSION['value'].'</p>
+                    <p>Xin chào, ' . $_SESSION['value'] . '</p>
                     <a href="logout.php">Đăng xuất</a>
                     </div>
                     </div>
                     ';
-                }
-                ?>
-                <script>
-                    document.getElementById('user-icon').addEventListener('mouseover', function() {
-                        document.querySelector('.user-info').style.display = 'block';
-                    });
+                    }
+                    ?>
+                    <script>
+                        document.getElementById('user-icon').addEventListener('mouseover', function() {
+                            document.querySelector('.user-info').style.display = 'block';
+                        });
 
-                    document.getElementById('user-icon').addEventListener('mouseout', function() {
-                        document.querySelector('.user-info').style.display = 'none';
-                    });
-                </script>
-                
-                <div class="icon" id="heart-icon">
-                    <a href="index_yeuthich.php">
-                        <i class="fas fa-heart"></i>
-                    </a>
-                </div>
+                        document.getElementById('user-icon').addEventListener('mouseout', function() {
+                            document.querySelector('.user-info').style.display = 'none';
+                        });
+                    </script>
 
-                <div class="icon" id="cart-icon">
-                    <a href="index_gio-hang.php">
-                        <i class="fas fa-shopping-cart"></i>
-                    </a>
+                    <div class="icon" id="heart-icon">
+                        <a href="index_yeuthich.php">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                    </div>
+
+                    <div class="icon" id="cart-icon">
+                        <a href="index_gio-hang.php">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <script>
-            window.onscroll = function() {
-                myFunction()
-            };
+            <script>
+                window.onscroll = function() {
+                    myFunction()
+                };
 
-            var header = document.getElementById("myHeader");
-            var sticky = header.offsetTop;
+                var header = document.getElementById("myHeader");
+                var sticky = header.offsetTop;
 
-            function myFunction() {
-                if (window.pageYOffset > sticky) {
-                    header.classList.add("shadow");
-                } else {
-                    header.classList.remove("shadow");
+                function myFunction() {
+                    if (window.pageYOffset > sticky) {
+                        header.classList.add("shadow");
+                    } else {
+                        header.classList.remove("shadow");
+                    }
                 }
-            }
-        </script>
+            </script>
     </header>
