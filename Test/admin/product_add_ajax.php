@@ -1,19 +1,19 @@
-<?php 
+<?php
 include("class/product_class.php");
 $product = new product();
- 
-$cartegory_id = $_GET['cartegory_id'];
+
+$category_id = $_GET['category_id'];
 ?>
 
 
 <?php
-$show_brand_ajax = $product->show_brand_ajax($cartegory_id);
-    if ($show_brand_ajax) {
-        while ($result = $show_brand_ajax->fetch_assoc()) {
+$show_brand_ajax = $product->show_brand_ajax($category_id);
+if ($show_brand_ajax) {
+    while ($result = $show_brand_ajax->fetch_assoc()) {
 
-    ?>
-    <option value="<?php echo $result['brand_id'] ?>"><?php echo $result['brand_name'] ?></optio>
+?>
+        <option value="<?php echo $result['brand_id'] ?>"><?php echo $result['brand_name'] ?></optio>
     <?php
-        }
     }
-    ?>  
+}
+    ?>

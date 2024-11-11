@@ -25,16 +25,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_product'])) {
             <label for="product_name">Tên Sản Phẩm</label>
             <input type="text" style="width:500px; height:30px;" name="product_name" value="<?php echo $result['product_name']; ?>">
             <br>
-            <label for="cartegory_id">Danh Mục</label>
-            <select name="cartegory_id">
+            <label for="category_id">Danh Mục</label>
+            <select name="category_id">
                 <?php
-                $show_cartegory = $product->show_cartegory();
-                if ($show_cartegory) {
-                    while ($cartegory = $show_cartegory->fetch_assoc()) {
+                $show_category = $product->show_category();
+                if ($show_category) {
+                    while ($category = $show_category->fetch_assoc()) {
                 ?>
-                    <option value="<?php echo $cartegory['cartegory_id']; ?>" <?php if ($cartegory['cartegory_id'] == $result['cartegory_id']) echo 'selected'; ?>>
-                        <?php echo $cartegory['cartegory_name']; ?>
-                    </option>
+                        <option value="<?php echo $category['category_id']; ?>" <?php if ($category['category_id'] == $result['category_id']) echo 'selected'; ?>>
+                            <?php echo $category['category_name']; ?>
+                        </option>
                 <?php
                     }
                 }
@@ -47,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_product'])) {
                 if ($show_brand) {
                     while ($brand = $show_brand->fetch_assoc()) {
                 ?>
-                    <option value="<?php echo $brand['brand_id']; ?>" <?php if ($brand['brand_id'] == $result['brand_id']) echo 'selected'; ?>>
-                        <?php echo $brand['brand_name']; ?>
-                    </option>
+                        <option value="<?php echo $brand['brand_id']; ?>" <?php if ($brand['brand_id'] == $result['brand_id']) echo 'selected'; ?>>
+                            <?php echo $brand['brand_name']; ?>
+                        </option>
                 <?php
                     }
                 }
@@ -70,4 +70,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_product'])) {
 </div>
 </section>
 </body>
+
 </html>

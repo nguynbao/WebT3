@@ -27,11 +27,12 @@ require_once('header.php');
     <div class="main-content">
         <div class="cart-items">
             <?php
-            if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+            if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 foreach ($_SESSION['cart'] as $item) {
             ?>
             <div class="cart-item">
-                <img src="../admin/uploads/<?php echo htmlspecialchars($item['product_img']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>">
+                <img src="../admin/uploads/<?php echo htmlspecialchars($item['product_img']); ?>"
+                    alt="<?php echo htmlspecialchars($item['product_name']); ?>">
                 <div class="item-details">
                     <p class="item-name"><?php echo htmlspecialchars($item['product_name']); ?></p>
                     <!-- Assuming you have a color for each item -->
@@ -53,53 +54,54 @@ require_once('header.php');
         </div>
     </div>
     <div class="order-summary">
-            <h3>Vui lòng chọn địa chỉ giao hàng</h3>
-            <label for="province">Tỉnh/Thành phố:</label>
-            <select id="province" name="province" onchange="updateDistricts()">
+        <h3>Vui lòng chọn địa chỉ giao hàng</h3>
+        <label for="province">Tỉnh/Thành phố:</label>
+        <select id="province" name="province" onchange="updateDistricts()">
             <option value="">Chọn Tỉnh/Thành phố</option>
-                <!-- Tùy chọn sẽ được thêm từ JavaScript -->
-            </select>
-            <label for="district">Huyện/Quận:</label>
-            <select id="district" name="district" onchange="updateWards()">
-                <option value="">Chọn Huyện/Quận</option>
-            </select>
+            <!-- Tùy chọn sẽ được thêm từ JavaScript -->
+        </select>
+        <label for="district">Huyện/Quận:</label>
+        <select id="district" name="district" onchange="updateWards()">
+            <option value="">Chọn Huyện/Quận</option>
+        </select>
 
-            <label for="ward">Xã/Phường:</label>
-            <select id="ward" name="ward">
-                <option value="">Chọn Xã/Phường</option>
-            </select>
-            <script src="address.js"></script>
+        <label for="ward">Xã/Phường:</label>
+        <select id="ward" name="ward">
+            <option value="">Chọn Xã/Phường</option>
+        </select>
+        <script src="address.js"></script>
 
 
-            <label for="delivery-address">Địa chỉ nhận hàng</label>
-            <input type="text">
-            <label for="delivery-address">Số điện thoại</label>
-            <input type="text">
-            <div class="total">
-                <p>Tổng cộng:</p>
-                <p id="price">0đ</p> <!-- Thay đổi giá trị mặc định thành 0đ -->
-                <p>(Đã bao gồm VAT nếu có)</p>
-            </div>
-            <div class="discount-code">
-                <p>Mã giảm giá</p>
-                <button>Chọn mã giảm giá</button>
-            </div>
+        <label for="delivery-address">Địa chỉ nhận hàng</label>
+        <input type="text">
+        <label for="delivery-address">Số điện thoại</label>
+        <input type="text">
+        <div class="total">
+            <p>Tổng cộng:</p>
+            <p id="price">0đ</p> <!-- Thay đổi giá trị mặc định thành 0đ -->
+            <p>(Đã bao gồm VAT nếu có)</p>
+        </div>
+        <div class="discount-code">
+            <p>Mã giảm giá</p>
+            <button>Chọn mã giảm giá</button>
+        </div>
 
-            <label >Phương thức thanh toán</label>
-            <select>
-                <option value="">Thanh toán khi nhận hàng</option>
-                <option value="">Thanh toán qua ngân hàng</option>
-            </select>
-            <button class="checkout-btn">Thanh Toán</button>
-            <div class="payment-methods">
-                <img src="http://theme.hstatic.net/200000696635/1001199686/14/footer_trustbadge.png?v=8" alt="Payment">
-            </div>
+        <label>Phương thức thanh toán</label>
+        <select>
+            <option value="">Thanh toán khi nhận hàng</option>
+            <option value="">Thanh toán qua ngân hàng</option>
+        </select>
+
+        <a href="thanhtoan.php"><button class="checkout-btn">Thanh Toán</button></a>
+        <div class="payment-methods">
+            <img src="http://theme.hstatic.net/200000696635/1001199686/14/footer_trustbadge.png?v=8" alt="Payment">
         </div>
     </div>
 </div>
+</div>
 
 <script>
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const quantityButtons = document.querySelectorAll('.quantity-btn');
     const totalElement = document.querySelector('.total #price');
     const removeButtons = document.querySelectorAll('.remove-btn');
@@ -124,10 +126,13 @@ require_once('header.php');
 
     removeButtons.forEach(button => {
         button.addEventListener('click', (e) => {
-            const cartItem = e.target.closest('.cart-item'); // Tìm phần tử cha gần nhất có class 'cart-item'
-            const itemName = cartItem.querySelector('.item-name').textContent; // Lấy tên sản phẩm
-            const confirmation = confirm(`Bạn có chắc chắn muốn xóa ${itemName} khỏi giỏ hàng không?`);
-            
+            const cartItem = e.target.closest(
+                '.cart-item'); // Tìm phần tử cha gần nhất có class 'cart-item'
+            const itemName = cartItem.querySelector('.item-name')
+                .textContent; // Lấy tên sản phẩm
+            const confirmation = confirm(
+                `Bạn có chắc chắn muốn xóa ${itemName} khỏi giỏ hàng không?`);
+
             if (confirmation) {
                 cartItem.remove(); // Xóa phần tử cart-item ra khỏi DOM
                 updateTotal(); // Cập nhật tổng tiền sau khi xóa sản phẩm
@@ -136,28 +141,32 @@ require_once('header.php');
     });
 
     function updateTotal() {
-    const itemPrices = document.querySelectorAll('.item-price');
-    let total = 0;
+        const itemPrices = document.querySelectorAll('.item-price');
+        let total = 0;
 
-    itemPrices.forEach(itemPrice => {
-        const priceString = itemPrice.textContent.replace('đ', '').replace(/\D/g, '').trim(); // Loại bỏ tất cả các ký tự không phải là số
-        const price = parseInt(priceString); // Chuyển đổi chuỗi số thành số nguyên
-        const quantity = parseInt(itemPrice.parentElement.querySelector('.item-quantity span').textContent);
-        total += price * quantity;
-    });
+        itemPrices.forEach(itemPrice => {
+            const priceString = itemPrice.textContent.replace('đ', '').replace(/\D/g, '')
+                .trim(); // Loại bỏ tất cả các ký tự không phải là số
+            const price = parseInt(priceString); // Chuyển đổi chuỗi số thành số nguyên
+            const quantity = parseInt(itemPrice.parentElement.querySelector('.item-quantity span')
+                .textContent);
+            total += price * quantity;
+        });
 
-    totalElement.textContent = formatCurrency(total);
-}
+        totalElement.textContent = formatCurrency(total);
+    }
 
-function formatCurrency(amount) {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
-}
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(amount);
+    }
 
-updateTotal();
+    updateTotal();
 });
-
 </script>
 
 
 
-<?php require_once('footer.php');?>
+<?php require_once('footer.php'); ?>

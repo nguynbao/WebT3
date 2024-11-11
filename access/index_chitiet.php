@@ -16,9 +16,9 @@ $product_name = "";
 // Check database connection
 if ($db->link) {
     // Query product details
-    $query_product = "SELECT p.*, c.cartegory_name, b.brand_name 
+    $query_product = "SELECT p.*, c.category_name, b.brand_name 
                       FROM tbl_product p 
-                      LEFT JOIN tbl_cartegory c ON p.cartegory_id = c.cartegory_id 
+                      LEFT JOIN tbl_category c ON p.category_id = c.category_id 
                       LEFT JOIN tbl_brand b ON p.brand_id = b.brand_id 
                       WHERE p.product_id = $product_id";
     $result_product = $db->select($query_product);
@@ -26,9 +26,9 @@ if ($db->link) {
     // Check query result
     if ($result_product && $result_product->num_rows > 0) {
         $product = $result_product->fetch_assoc();
-        
+
         // Assign values to variables
-        $category_name = isset($product['cartegory_name']) ? $product['cartegory_name'] : "";
+        $category_name = isset($product['category_name']) ? $product['category_name'] : "";
         $brand_name = isset($product['brand_name']) ? $product['brand_name'] : "";
         $product_name = isset($product['product_name']) ? $product['product_name'] : "";
 
@@ -114,22 +114,24 @@ if ($db->link) {
                             <p>THÊM VÀO GIỎ HÀNG</p>
                         </button>
                     </form>
-                    <button><p>MUA HÀNG</p></button>
+                    <button>
+                        <p>MUA HÀNG</p>
+                    </button>
                 </div>
 
                 <div class="product-content-right-product-contact">
-                        <p>BẠN CẦN ĐẶT ÁO ĐỘI BÓNG? BẠN CẦN ĐẶT IN TÊN SỐ?</p>
-                        <div class="product-content-right-product-icon">
-                            <div class="product-content-right-product-icon-item">
-                                <i class="fas fa-phone-alt"></i>
-                                <p>Hotline</p>
-                            </div>
-                            <div class="product-content-right-product-icon-item">
-                                <i class="fas fa-comments"></i>
-                                <p>Chat</p>
-                            </div>
+                    <p>BẠN CẦN ĐẶT ÁO ĐỘI BÓNG? BẠN CẦN ĐẶT IN TÊN SỐ?</p>
+                    <div class="product-content-right-product-icon">
+                        <div class="product-content-right-product-icon-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <p>Hotline</p>
+                        </div>
+                        <div class="product-content-right-product-icon-item">
+                            <i class="fas fa-comments"></i>
+                            <p>Chat</p>
                         </div>
                     </div>
+                </div>
 
 
                 <div class="product-content-right-bottom">
@@ -207,8 +209,12 @@ if ($db->link) {
 
 <?php
 // Free result and close database connection
-if ($result_product) { $result_product->free(); }
-if ($result_imgs) { $result_imgs->free(); }
+if ($result_product) {
+    $result_product->free();
+}
+if ($result_imgs) {
+    $result_imgs->free();
+}
 $db->link->close();
 
 // Include footer

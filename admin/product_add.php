@@ -9,23 +9,23 @@ if (isset($_SESSION['admin'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $insert_product = $product->insert_product($_POST, $_FILES);
     }
-    ?>
+?>
     <div class="admin_content_right">
         <div class="admin_content_right_product_add">
             <h1>Thêm Sản Phẩm</h1>
             <form action="" method="post" enctype="multipart/form-data">
-                <label for="">Nhập tên sản phẩm <span style ="color: red;">*</span></label>
+                <label for="">Nhập tên sản phẩm <span style="color: red;">*</span></label>
                 <input required type="text" name="product_name" id="">
                 <label for="">Chọn Danh Mục <span style="color: red;">*</span></label>
-                <select name="cartegory_id" id="cartegory_id" required>
+                <select name="category_id" id="category_id" required>
                     <option value="">--Chọn--</option>
                     <?php
-                    $show_cartegory = $product->show_cartegory();
-                    if ($show_cartegory) {
-                        while ($result = $show_cartegory->fetch_assoc()) {
-                            ?>
-                            <option value="<?php echo $result['cartegory_id'] ?>"><?php echo $result['cartegory_name'] ?></option>
-                            <?php
+                    $show_category = $product->show_category();
+                    if ($show_category) {
+                        while ($result = $show_category->fetch_assoc()) {
+                    ?>
+                            <option value="<?php echo $result['category_id'] ?>"><?php echo $result['category_name'] ?></option>
+                    <?php
                         }
                     }
                     ?>
@@ -52,16 +52,19 @@ if (isset($_SESSION['admin'])) {
     </body>
     <script>
         $(document).ready(function() {
-            $("#cartegory_id").change(function() {
+            $("#category_id").change(function() {
                 var x = $(this).val();
-                $.get("product_add_ajax.php", { cartegory_id: x }, function(data) {
+                $.get("product_add_ajax.php", {
+                    category_id: x
+                }, function(data) {
                     $("#brand_id").html(data);
                 });
             });
         });
     </script>
+
     </html>
-    <?php
+<?php
 } else {
     echo "Erorr: 404!";
 }

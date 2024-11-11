@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_brand` (
   `brand_id` int(11) NOT NULL,
-  `cartegory_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `brand_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -37,7 +37,7 @@ CREATE TABLE `tbl_brand` (
 -- Dumping data for table `tbl_brand`
 --
 
-INSERT INTO `tbl_brand` (`brand_id`, `cartegory_id`, `brand_name`) VALUES
+INSERT INTO `tbl_brand` (`brand_id`, `category_id`, `brand_name`) VALUES
 (20, 6, 'Áo đội tuyển quốc gia'),
 (21, 6, 'Áo câu lạc bộ'),
 (22, 7, 'Giày đá bóng futsal'),
@@ -55,19 +55,19 @@ INSERT INTO `tbl_brand` (`brand_id`, `cartegory_id`, `brand_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_cartegory`
+-- Table structure for table `tbl_category`
 --
 
-CREATE TABLE `tbl_cartegory` (
-  `cartegory_id` int(11) NOT NULL,
-  `cartegory_name` varchar(255) NOT NULL
+CREATE TABLE `tbl_category` (
+  `category_id` int(11) NOT NULL,
+  `category_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbl_cartegory`
+-- Dumping data for table `tbl_category`
 --
 
-INSERT INTO `tbl_cartegory` (`cartegory_id`, `cartegory_name`) VALUES
+INSERT INTO `tbl_category` (`category_id`, `category_name`) VALUES
 (6, 'Áo Quần Bóng Đá'),
 (7, 'Giày Bóng Đá'),
 (8, 'Giày Thể Thao'),
@@ -83,7 +83,7 @@ INSERT INTO `tbl_cartegory` (`cartegory_id`, `cartegory_name`) VALUES
 CREATE TABLE `tbl_product` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(255) NOT NULL,
-  `cartegory_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `brand_id` int(11) NOT NULL,
   `product_price` varchar(255) NOT NULL,
   `product_price_new` varchar(255) NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE `tbl_product` (
 -- Dumping data for table `tbl_product`
 --
 
-INSERT INTO `tbl_product` (`product_id`, `product_name`, `cartegory_id`, `brand_id`, `product_price`, `product_price_new`, `product_desc`, `product_img`) VALUES
+INSERT INTO `tbl_product` (`product_id`, `product_name`, `category_id`, `brand_id`, `product_price`, `product_price_new`, `product_desc`, `product_img`) VALUES
 (11, 'Áo Bóng Đá Đội Tuyển Bỉ Bã Trầu Euro 2024', 6, 20, '500000', '249000', 'Áo Bóng Đá Sân Nhà Đội Tuyển Bỉ Bã Trầu Euro 2024', 'sp1.1.jpg'),
 (14, 'Áo Bóng Đá AL Nassr Trắng 2023-2024', 6, 21, '300000', '149000', 'N-SPORTS - Cung cấp áo bóng đá và phụ kiện thể thao.\n\nChuyên nghiệp và uy tín hàng đầu!\n\nCam kết chất lượng và giá cả cực tốt, sp như hình 100%\n\nChất liệu thun lạnh cao cấp, co dãn tốt, thấm hút mồ hôi tốt\n\nĐa dạng về mẫu mã, phong phú về màu sắc, luôn cập nhật các mẫu HOT nhất thị trường\n\nPhom dáng chuẩn người VN, đường may tỉ mỉ, độ hoàn thiện cao, Logo được thêu chắc chắn\n\nHãy mua hàng và trải nghiệm chất lượng sản phẩm shop mang lại nhé !', '1.jpg'),
 (15, 'Áo Bóng Đá Manchester City sân nhà 2024-2025', 6, 21, '300000', '159000', 'N-SPORTS - Cung cấp áo bóng đá và phụ kiện thể thao.\r\n\r\nChuyên nghiệp và uy tín hàng đầu!\r\n\r\nCam kết chất lượng và giá cả cực tốt, sp như hình 100%\r\n\r\nChất liệu thun lạnh cao cấp, co dãn tốt, thấm hút mồ hôi tốt\r\n\r\nĐa dạng về mẫu mã, phong phú về màu sắc, luôn cập nhật các mẫu HOT nhất thị trường\r\n\r\nPhom dáng chuẩn người VN, đường may tỉ mỉ, độ hoàn thiện cao, Logo được thêu chắc chắn\r\n\r\nHãy mua hàng và trải nghiệm chất lượng sản phẩm shop mang lại nhé !', 'mc1.jpg'),
@@ -181,7 +181,7 @@ INSERT INTO `tbl_product_img_desc` (`product_id`, `product_img_desc`) VALUES
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,        
   `password` varchar(255) NOT NULL,
   `cookie` varchar(255) NOT NULL,
   `rule` int(11) NOT NULL
@@ -199,7 +199,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `cookie`, `rule`) VALUES
 (14, 'ga', 'hieu@gmail.com', '$2y$10$HQEdYJdG1i7FH5uW0ggn7.NJnzE10HDWQttqVL/iTStiY8Xua2L3C', '', 0),
 (15, 'ngngngn', 'abc@gmail.com', '$2y$10$5.laezU0JDqc5om2phjPY.WV6xECHhVhbxGZsP6T6hGaIbOXKHTDa', '', 0),
 (16, 'nguyen tat ngoc', 'ngoc123@gmail.com', '$2y$10$QJUTzYAQ/USx0HoK.VidfO.Tsv0k6CXo6l.Pzd/mrbej1YztnMhUu', '', 0),
-(17, 'test', 'test@gmail.com', '$2y$10$dM6cV2dtf/WrZn9hmcdbWuhm1WBT1XywNj2EuHs1NcOVrfN4j2bra', '', 0);
+(17, 'test', 'test@gmail.com', '$2y$10$dM6cV2dtf/WrZn9hmcdbWuhm1WBT1XywNj2EuHs1NcOVrfN4j2bra', '', 0),
 
 --
 -- Indexes for dumped tables
@@ -212,10 +212,10 @@ ALTER TABLE `tbl_brand`
   ADD PRIMARY KEY (`brand_id`);
 
 --
--- Indexes for table `tbl_cartegory`
+-- Indexes for table `tbl_category`
 --
-ALTER TABLE `tbl_cartegory`
-  ADD PRIMARY KEY (`cartegory_id`);
+ALTER TABLE `tbl_category`
+  ADD PRIMARY KEY (`category_id`);
 
 --
 -- Indexes for table `tbl_product`
@@ -240,10 +240,10 @@ ALTER TABLE `tbl_brand`
   MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT for table `tbl_cartegory`
+-- AUTO_INCREMENT for table `tbl_category`
 --
-ALTER TABLE `tbl_cartegory`
-  MODIFY `cartegory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `tbl_category`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
@@ -255,9 +255,15 @@ ALTER TABLE `tbl_product`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+
+(100, 'tu', 'tu@gmail.com', '$2y$10$wZ5uCwMeI93xE/t2La5RbeqI7hGGUMGzjtx2tmdp8nd6f0vNlNmMO', '', 0)
+(101, 'Ngoc Bao', 'Baonguyendng123@gmail.com', '$2y$10$KgYvJovxKGdyFLYoUVhejeCXZn..qKiUIwkxNJ/lvAYyWr9VglWGG', '', 0)

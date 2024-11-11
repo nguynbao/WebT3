@@ -4,7 +4,7 @@ if (isset($_SESSION['admin'])) {
     include "header.php";
     include "slider.php";
     include "class/product_class.php";
-    
+
     $product = new product();
 
     if (isset($_GET['product_id'])) {
@@ -18,7 +18,7 @@ if (isset($_SESSION['admin'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_product'])) {
         $update_product = $product->update_product($product_id, $_POST, $_FILES);
     }
-    ?>
+?>
 
     <div class="admin_content_right">
         <div class="admin_content_right_product_edit">
@@ -27,17 +27,17 @@ if (isset($_SESSION['admin'])) {
                 <label for="product_name">Tên Sản Phẩm</label>
                 <input type="text" style="width:500px; height:30px;" name="product_name" value="<?php echo isset($result['product_name']) ? $result['product_name'] : ''; ?>">
                 <br>
-                <label for="cartegory_id">Danh Mục</label>
-                <select name="cartegory_id">
+                <label for="category_id">Danh Mục</label>
+                <select name="category_id">
                     <?php
-                    $show_cartegory = $product->show_cartegory();
-                    if ($show_cartegory) {
-                        while ($cartegory = $show_cartegory->fetch_assoc()) {
-                            ?>
-                            <option value="<?php echo $cartegory['cartegory_id']; ?>" <?php if (isset($result['cartegory_id']) && $cartegory['cartegory_id'] == $result['cartegory_id']) echo 'selected'; ?>>
-                                <?php echo $cartegory['cartegory_name']; ?>
+                    $show_category = $product->show_category();
+                    if ($show_category) {
+                        while ($category = $show_category->fetch_assoc()) {
+                    ?>
+                            <option value="<?php echo $category['category_id']; ?>" <?php if (isset($result['category_id']) && $category['category_id'] == $result['category_id']) echo 'selected'; ?>>
+                                <?php echo $category['category_name']; ?>
                             </option>
-                            <?php
+                    <?php
                         }
                     }
                     ?>
@@ -48,11 +48,11 @@ if (isset($_SESSION['admin'])) {
                     $show_brand = $product->show_brand();
                     if ($show_brand) {
                         while ($brand = $show_brand->fetch_assoc()) {
-                            ?>
+                    ?>
                             <option value="<?php echo $brand['brand_id']; ?>" <?php if (isset($result['brand_id']) && $brand['brand_id'] == $result['brand_id']) echo 'selected'; ?>>
                                 <?php echo $brand['brand_name']; ?>
                             </option>
-                            <?php
+                    <?php
                         }
                     }
                     ?>
@@ -74,8 +74,9 @@ if (isset($_SESSION['admin'])) {
     </div>
     </section>
     </body>
+
     </html>
-    <?php
+<?php
 } else {
     echo "Erorr: 404!";
 }

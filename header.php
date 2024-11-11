@@ -5,18 +5,18 @@ include "admin/database.php";
 $db = new Database();
 
 // Truy vấn danh mục
-$sql_cartegory = "SELECT cartegory_id, cartegory_name FROM tbl_cartegory";
-$result_cartegory = $db->select($sql_cartegory);
+$sql_category = "SELECT category_id, category_name FROM tbl_category";
+$result_category = $db->select($sql_category);
 
 $categories = array();
-if ($result_cartegory) {
-    while ($row = $result_cartegory->fetch_assoc()) {
-        $categories[$row['cartegory_id']] = $row['cartegory_name'];
+if ($result_category) {
+    while ($row = $result_category->fetch_assoc()) {
+        $categories[$row['category_id']] = $row['category_name'];
     }
 }
 
 // Truy vấn thương hiệu
-$sql_brand = "SELECT brand_id, cartegory_id, brand_name FROM tbl_brand";
+$sql_brand = "SELECT brand_id, category_id, brand_name FROM tbl_brand";
 $result_brand = $db->select($sql_brand);
 
 $brands = array();
@@ -60,15 +60,15 @@ if ($result_brand) {
                             <a href="access/index_products.php">SẢN PHẨM </a>
                             <ul class="menu_sanpham">
                                 <div class="menu_sp">
-                                    <?php foreach ($categories as $cartegory_id => $cartegory_name): ?>
+                                    <?php foreach ($categories as $category_id => $category_name): ?>
                                         <li>
                                             <a
-                                                href="access/brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>"><?php echo $cartegory_name; ?></a>
+                                                href="access/brand_product.php?category_id=<?php echo $category_id; ?>"><?php echo $category_name; ?></a>
                                             <ul class="menu_con">
                                                 <?php foreach ($brands as $brand): ?>
-                                                    <?php if ($brand['cartegory_id'] == $cartegory_id): ?>
+                                                    <?php if ($brand['category_id'] == $category_id): ?>
                                                         <li><a
-                                                                href="access/brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>&brand_id=<?php echo $brand['brand_id']; ?>"><?php echo $brand['brand_name']; ?></a>
+                                                                href="access/brand_product.php?category_id=<?php echo $category_id; ?>&brand_id=<?php echo $brand['brand_id']; ?>"><?php echo $brand['brand_name']; ?></a>
                                                         </li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>

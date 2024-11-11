@@ -5,24 +5,24 @@ require_once('header.php');
 $db = new Database();
 
 // Truy vấn danh mục
-$sql_cartegory = "SELECT cartegory_id, cartegory_name FROM tbl_cartegory";
-$result_cartegory = $db->select($sql_cartegory);
+$sql_category = "SELECT category_id, category_name FROM tbl_category";
+$result_category = $db->select($sql_category);
 
 // Truy vấn thương hiệu
-$sql_brand = "SELECT brand_id, cartegory_id, brand_name FROM tbl_brand";
+$sql_brand = "SELECT brand_id, category_id, brand_name FROM tbl_brand";
 $result_brand = $db->select($sql_brand);
 
 $cartegories = array();
-if ($result_cartegory) {
-    while($row = $result_cartegory->fetch_assoc()) {
-        $cartegories[$row['cartegory_id']] = $row['cartegory_name'];
+if ($result_category) {
+    while ($row = $result_category->fetch_assoc()) {
+        $cartegories[$row['category_id']] = $row['category_name'];
     }
 }
 
 $brands = array();
 if ($result_brand) {
-    while($row = $result_brand->fetch_assoc()) {
-        $brands[$row['cartegory_id']][] = $row;
+    while ($row = $result_brand->fetch_assoc()) {
+        $brands[$row['category_id']][] = $row;
     }
 }
 ?>
@@ -34,20 +34,20 @@ if ($result_brand) {
 </div>
 
 <div class="container_products">
-<div class="cartegory-left">
-    <ul>
-        <?php foreach($cartegories as $cartegory_id => $cartegory_name): ?>
-            <li class="cartegory-left-li">
-                <a href="brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>" class="category-link"><?php echo $cartegory_name; ?></a>
-                <ul class="sub-menu">
-                <?php foreach($brands[$cartegory_id] as $brand): ?>
-                    <li><a href="brand_product.php?cartegory_id=<?php echo $cartegory_id; ?>&brand_id=<?php echo $brand['brand_id']; ?>"><?php echo $brand['brand_name']; ?></a></li>
-                <?php endforeach; ?>
-                </ul>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</div>
+    <div class="category-left">
+        <ul>
+            <?php foreach ($cartegories as $category_id => $category_name): ?>
+                <li class="category-left-li">
+                    <a href="brand_product.php?category_id=<?php echo $category_id; ?>" class="category-link"><?php echo $category_name; ?></a>
+                    <ul class="sub-menu">
+                        <?php foreach ($brands[$category_id] as $brand): ?>
+                            <li><a href="brand_product.php?category_id=<?php echo $category_id; ?>&brand_id=<?php echo $brand['brand_id']; ?>"><?php echo $brand['brand_name']; ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 
 
     <script>
@@ -80,7 +80,7 @@ if ($result_brand) {
 
     <script>
         //----------products----------------
-        const itemslidebar = document.querySelectorAll(".cartegory-left-li > a");
+        const itemslidebar = document.querySelectorAll(".category-left-li > a");
 
         itemslidebar.forEach(function(menu) {
             menu.addEventListener("click", function(event) {
@@ -96,21 +96,21 @@ if ($result_brand) {
         });
     </script>
 
-    <div class="cartegory-right">
-        <div class="cartegory-right-top">
-            <div class="cartegory-right-top-item">
+    <div class="category-right">
+        <div class="category-right-top">
+            <div class="category-right-top-item">
                 <p>
                     <?php
-                    if(isset($_GET['cartegory_id'])) {
-                        $cartegory_id = $_GET['cartegory_id'];
-                        echo $categories[$cartegory_id];
+                    if (isset($_GET['category_id'])) {
+                        $category_id = $_GET['category_id'];
+                        echo $categories[$category_id];
                     } else {
                         echo "Tất cả sản phẩm";
                     }
                     ?>
                 </p>
             </div>
-            <div class="cartegory-right-top-item">
+            <div class="category-right-top-item">
                 <select name="" id="">
                     <option value="">Sắp xếp</option>
                     <option value="price_desc">Giá cao đến thấp</option>
@@ -119,22 +119,22 @@ if ($result_brand) {
             </div>
         </div>
 
-        <div class="cartegory-right-content">
+        <div class="category-right-content">
             <?php
             // Truy vấn sản phẩm theo danh mục và thương hiệu
             $sql_product = "SELECT * FROM tbl_product";
-            if(isset($_GET['cartegory_id'])) {
-                $sql_product .= " WHERE cartegory_id = ".$_GET['cartegory_id'];
-                if(isset($_GET['brand_id'])) {
-                    $sql_product .= " AND brand_id = ".$_GET['brand_id'];
+            if (isset($_GET['category_id'])) {
+                $sql_product .= " WHERE category_id = " . $_GET['category_id'];
+                if (isset($_GET['brand_id'])) {
+                    $sql_product .= " AND brand_id = " . $_GET['brand_id'];
                 }
             }
             $result_product = $db->select($sql_product);
 
-            if($result_product) {
-                while($product = $result_product->fetch_assoc()) {
-                    ?>
-                    <div class="cartegory-right-content-item">
+            if ($result_product) {
+                while ($product = $result_product->fetch_assoc()) {
+            ?>
+                    <div class="category-right-content-item">
                         <a href="index_chitiet.php?product_id=<?php echo $product['product_id']; ?>">
                             <img src="../admin/uploads/<?php echo $product['product_img']; ?>" alt="">
                             <h1><?php echo $product['product_name']; ?></h1>
@@ -142,7 +142,7 @@ if ($result_brand) {
                             <p><?php echo $product['product_price_new']; ?><sup>đ</sup></p>
                         </a>
                     </div>
-                    <?php
+            <?php
                 }
             } else {
                 echo "<p>Không có sản phẩm nào</p>";
@@ -150,16 +150,16 @@ if ($result_brand) {
             ?>
         </div>
 
-        <div class="cartegory-right-bottom row">
-            <div class="cartegory-right-bottom-items">
+        <div class="category-right-bottom row">
+            <div class="category-right-bottom-items">
                 <p>Hiển Thị 2 <span>|</span> 4 sản phẩm</p>
             </div>
 
-            <div class="cartegory-right-bottom-items">
+            <div class="category-right-bottom-items">
                 <p><span>&#171;</span>1 2 3 4 5 <span>&#187;</span>Trang cuối</p>
             </div>
         </div>
     </div>
 </div>
 
-<?php require_once('footer.php');?>
+<?php require_once('footer.php'); ?>
