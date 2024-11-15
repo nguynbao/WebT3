@@ -201,6 +201,27 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `cookie`, `rule`) VALUES
 (16, 'nguyen tat ngoc', 'ngoc123@gmail.com', '$2y$10$QJUTzYAQ/USx0HoK.VidfO.Tsv0k6CXo6l.Pzd/mrbej1YztnMhUu', '', 0),
 (17, 'test', 'test@gmail.com', '$2y$10$dM6cV2dtf/WrZn9hmcdbWuhm1WBT1XywNj2EuHs1NcOVrfN4j2bra', '', 0),
 
+
+
+CREATE TABLE `orders` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NULL,
+    `total_price` DECIMAL(10,2) NOT NULL,
+    `delivery_address` TEXT NOT NULL,
+    `phone` VARCHAR(15) NOT NULL,
+    `payment_method` VARCHAR(50) NOT NULL,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `order_details` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `order_id` INT NOT NULL,
+    `product_id` INT NOT NULL,
+    `product_name` VARCHAR(255) NOT NULL,
+    `product_price` DECIMAL(10,2) NOT NULL,
+    `quantity` INT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
 --
 -- Indexes for dumped tables
 --
@@ -265,5 +286,3 @@ COMMIT;
 
 
 
-(100, 'tu', 'tu@gmail.com', '$2y$10$wZ5uCwMeI93xE/t2La5RbeqI7hGGUMGzjtx2tmdp8nd6f0vNlNmMO', '', 0)
-(101, 'Ngoc Bao', 'Baonguyendng123@gmail.com', '$2y$10$KgYvJovxKGdyFLYoUVhejeCXZn..qKiUIwkxNJ/lvAYyWr9VglWGG', '', 0)

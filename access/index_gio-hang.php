@@ -35,7 +35,6 @@ require_once('header.php');
                     alt="<?php echo htmlspecialchars($item['product_name']); ?>">
                 <div class="item-details">
                     <p class="item-name"><?php echo htmlspecialchars($item['product_name']); ?></p>
-                    <!-- Assuming you have a color for each item -->
                 </div>
                 <div class="item-price"><?php echo number_format($item['product_price'], 0, ',', '.'); ?>đ</div>
                 <div class="item-quantity">
@@ -53,51 +52,82 @@ require_once('header.php');
             ?>
         </div>
     </div>
-    <div class="order-summary">
-        <h3>Vui lòng chọn địa chỉ giao hàng</h3>
-        <label for="province">Tỉnh/Thành phố:</label>
+
+    <!-- Form thanh toán -->
+    <form action="thanhtoan.php" method="POST">
+        <div class="order-summary">
+            <h3>Vui lòng chọn địa chỉ giao hàng</h3>
+
+            <!-- <label for="province">Tỉnh/Thành phố:</label>
         <select id="province" name="province" onchange="updateDistricts()">
-            <option value="">Chọn Tỉnh/Thành phố</option>
+            <option value="">Chọn Tỉnh/Thành phố</option> -->
             <!-- Tùy chọn sẽ được thêm từ JavaScript -->
+            <!-- <option value="Hà Nội">Hà Nội</option>
+            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+            <option value="Đà Nẵng">Đà Nẵng</option>
+            <option value="Cần Thơ">Cần Thơ</option>
         </select>
+
         <label for="district">Huyện/Quận:</label>
         <select id="district" name="district" onchange="updateWards()">
-            <option value="">Chọn Huyện/Quận</option>
-        </select>
+            <option value="">Chọn Huyện/Quận</option> -->
+            <!-- Các quận sẽ được cập nhật sau khi người dùng chọn tỉnh -->
+            <!-- </select> -->
 
-        <label for="ward">Xã/Phường:</label>
-        <select id="ward" name="ward">
-            <option value="">Chọn Xã/Phường</option>
-        </select>
-        <script src="address.js"></script>
+            <label for="delivery-address">Địa chỉ nhận hàng</label>
+            <input name="delivery_address" type="text" required>
 
+            <label for="phone">Số điện thoại</label>
+            <input name="phone" type="text" required>
 
-        <label for="delivery-address">Địa chỉ nhận hàng</label>
-        <input type="text">
-        <label for="delivery-address">Số điện thoại</label>
-        <input type="text">
-        <div class="total">
-            <p>Tổng cộng:</p>
-            <p id="price">0đ</p> <!-- Thay đổi giá trị mặc định thành 0đ -->
-            <p>(Đã bao gồm VAT nếu có)</p>
+            <div class="total">
+                <p>Tổng cộng:</p>
+                <p id="price">0đ</p>
+                <p>(Đã bao gồm VAT nếu có)</p>
+            </div>
+
+            <div class="discount-code">
+                <p>Mã giảm giá</p>
+                <button>Chọn mã giảm giá</button>
+            </div>
+
+            <label>Phương thức thanh toán</label>
+            <select name="payment_method" required>
+                <option value="">Thanh toán khi nhận hàng</option>
+                <option value="bank_transfer">Thanh toán qua ngân hàng</option>
+            </select>
+
+            <button type="submit" class="checkout-btn">Thanh toán</button>
         </div>
-        <div class="discount-code">
-            <p>Mã giảm giá</p>
-            <button>Chọn mã giảm giá</button>
-        </div>
+    </form>
 
-        <label>Phương thức thanh toán</label>
-        <select>
-            <option value="">Thanh toán khi nhận hàng</option>
-            <option value="">Thanh toán qua ngân hàng</option>
-        </select>
+    <!-- <script>
+    const districtsByProvince = {
+        "Hà Nội": ["Ba Đình", "Hoàn Kiếm", "Cầu Giấy", "Đống Đa"],
+        "Hồ Chí Minh": ["Quận 1", "Quận 3", "Quận 5", "Quận 7"],
+        "Đà Nẵng": ["Hải Châu", "Cẩm Lệ", "Liên Chiểu", "Thanh Khê"],
+        "Cần Thơ": ["Ninh Kiều", "Bình Thủy", "Cái Răng"]
+    };
 
-        <a href="thanhtoan.php"><button class="checkout-btn">Thanh Toán</button></a>
-        <div class="payment-methods">
-            <img src="http://theme.hstatic.net/200000696635/1001199686/14/footer_trustbadge.png?v=8" alt="Payment">
-        </div>
-    </div>
-</div>
+    function updateDistricts() {
+        const province = document.getElementById("province").value;
+        const districtSelect = document.getElementById("district");
+
+        // Xóa tất cả các option hiện tại trong quận/huyện
+        districtSelect.innerHTML = '<option value="">Chọn Huyện/Quận</option>';
+
+        if (province && districtsByProvince[province]) {
+            // Thêm các quận/huyện tương ứng với tỉnh đã chọn
+            districtsByProvince[province].forEach(district => {
+                const option = document.createElement("option");
+                option.value = district;
+                option.textContent = district;
+                districtSelect.appendChild(option);
+            });
+        }
+    }
+</script> -->
+
 </div>
 
 <script>
@@ -166,7 +196,5 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTotal();
 });
 </script>
-
-
 
 <?php require_once('footer.php'); ?>
